@@ -67,9 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = clone.querySelector('.subject-row');
             const select = clone.querySelector('.grade-select');
             
-            clone.querySelector('.subject-code').textContent = subject.code;
             clone.querySelector('.subject-name').textContent = subject.name;
-            clone.querySelector('.subject-credits').textContent = `Credits: ${subject.credits}`;
             
             select.dataset.credits = subject.credits;
             select.dataset.id = `${semesterId}-subj-${index}`;
