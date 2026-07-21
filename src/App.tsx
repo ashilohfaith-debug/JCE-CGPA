@@ -82,7 +82,7 @@ export default function App() {
               type="text" 
               value={tempName}
               onChange={e => setTempName(e.target.value)}
-              placeholder="e.g. Kevin Joshua"
+              placeholder="Your Name"
               className="w-full bg-slate-950 border border-slate-700 text-slate-200 rounded-xl px-4 py-3 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all text-center"
               required
             />
