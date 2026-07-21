@@ -8,6 +8,7 @@ export default function App() {
   const [gradesSem2, setGradesSem2] = useState<Record<string, string>>({});
   const [userName, setUserName] = useState<string>(() => localStorage.getItem('jce-cgpa-name') || '');
   const [tempName, setTempName] = useState('');
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
   
   // Load from local storage
   useEffect(() => {
@@ -45,15 +46,14 @@ export default function App() {
     return (filled / subjects.length) * 100;
   };
 
-  const clearData = () => {
-    if (confirm('Are you sure you want to reset all grades and your name?')) {
-      setGradesSem1({});
-      setGradesSem2({});
-      setUserName('');
-      localStorage.removeItem('jce-cgpa-sem1');
-      localStorage.removeItem('jce-cgpa-sem2');
-      localStorage.removeItem('jce-cgpa-name');
-    }
+  const confirmReset = () => {
+    setGradesSem1({});
+    setGradesSem2({});
+    setUserName('');
+    localStorage.removeItem('jce-cgpa-sem1');
+    localStorage.removeItem('jce-cgpa-sem2');
+    localStorage.removeItem('jce-cgpa-name');
+    setShowResetConfirm(false);
   };
 
   const handleNameSubmit = (e: React.FormEvent) => {
@@ -111,7 +111,7 @@ export default function App() {
             <h1 className="font-semibold text-lg sm:text-xl tracking-tight text-white">CGPA Calculator</h1>
           </div>
           <button 
-            onClick={clearData}
+            onClick={() => setShowResetConfirm(true)}
             className="text-xs sm:text-sm px-4 py-2 rounded-full bg-slate-800 text-slate-300 hover:bg-red-500/20 hover:text-red-400 transition-colors border border-slate-700"
           >
             Reset All
@@ -188,6 +188,39 @@ export default function App() {
           </div>
         </div>
       </main>
+
+      {/* Custom Reset Confirmation Modal */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowResetConfirm(false)}
+          ></div>
+          <div className="bg-slate-900 border border-slate-700 rounded-3xl p-6 sm:p-8 max-w-sm w-full relative z-10 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-12 h-12 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center mb-5 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            </div>
+            <h3 className="text-xl font-bold text-white text-center mb-2">Reset Calculator</h3>
+            <p className="text-slate-400 text-center mb-8 text-sm">
+              Are you sure you want to clear all your grades and reset your name? This action cannot be undone.
+            </p>
+            <div className="flex gap-3">
+              <button 
+                onClick={() => setShowResetConfirm(false)}
+                className="flex-1 px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors font-medium text-sm border border-slate-700"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={confirmReset}
+                className="flex-1 px-4 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 text-white transition-colors font-medium text-sm shadow-lg shadow-red-500/25"
+              >
+                Yes, Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
