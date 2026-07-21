@@ -1,38 +1,32 @@
-# JCE CGPA Calculator
+# React + TypeScript + Vite
 
-![JCE CGPA Calculator Logo/Screenshot](assets/images/screenshot-placeholder.png)
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-A fast, accurate, and mobile-friendly Semester GPA and Overall CGPA Calculator for Jerusalem College of Engineering (JCE) students under Regulation 2023.
+Currently, two official plugins are available:
 
-## Live Demo
-👉 **[View the Live Website Here](#)** *(Replace with GitHub Pages URL)*
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## Features
-- **Regulation 2023 Curriculum:** Accurately features all Semester 1 and Semester 2 subjects and their credit assignments directly extracted from the official curriculum.
-- **Accurate Grade Mapping:** Incorporates exact grade mappings (S=10, A+=9, A=8, B+=7, B=6.5, C+=6, C=5, U/SA/WC=0).
-- **Mobile First & Premium UI:** Designed to look exceptional on all screen sizes featuring glassmorphism, fluid animations, and micro-interactions.
-- **Dark Mode Support:** Toggle seamlessly between Light and Dark mode. Preferences are saved automatically.
-- **Auto Save:** Don't worry about accidental refreshes. Your selected grades are saved in local storage.
-- **Visual Analytics:** View your calculated stats, completion progress, and engaging animations upon results!
+## React Compiler
 
-## How GPA Works
-The Grade Point Average (GPA) for each semester is calculated using the formula:
-**GPA = Σ(Grade Point × Credit) / Σ(Credits)**
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-For every subject, the grade you select corresponds to a numerical Grade Point. This is multiplied by the subject's Credit value to get the Total Grade Points. Finally, the Total Grade Points across all subjects are summed and divided by the total credits for the semester.
+## Expanding the Oxlint configuration
 
-## How CGPA Works
-The Cumulative Grade Point Average (CGPA) is derived by averaging your Semester GPAs:
-**CGPA = (Semester 1 GPA + Semester 2 GPA) / 2**
-*(Calculated to 2 decimal places)*
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
 
-## Deployment Instructions
-This project uses **GitHub Actions** to automatically build and deploy to GitHub Pages on every push to the `main` branch.
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
+```
 
-1. Go to your repository settings in GitHub.
-2. Navigate to **Pages** in the left sidebar.
-3. Under **Source**, ensure it is set to **GitHub Actions**.
-4. Push any changes to the `main` branch. The action will automatically deploy the site.
-
----
-*Made with ❤️ for Jerusalem College of Engineering Students.*
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
